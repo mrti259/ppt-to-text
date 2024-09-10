@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "ppt-to-text"
+version = "0.1.0"
+description = ""
+authors = ["Borja Garibotti <mgaribotti@fi.uba.ar>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+jupyter = "^1.1.1"
+python-pptx = "^1.0.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
