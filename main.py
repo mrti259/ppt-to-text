@@ -7,9 +7,9 @@
 import os
 from pathlib import Path
 
-dir_in = "EBT2"
-path_in = Path("in") / dir_in
-path_out = Path("out") / dir_in
+dir_in = "Proba"
+path_in = Path("in") #/ dir_in
+path_out = Path("out") #/ dir_in
 
 if not path_out.exists():
     os.mkdir(path_out)
