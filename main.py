@@ -1,36 +1,37 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[1]:
+# In[28]:
 
 
 import os
 from pathlib import Path
 
-dir_in = "Proba"
-path_in = Path("in") #/ dir_in
-path_out = Path("out") #/ dir_in
+path_in = Path("in")
+path_out = Path("out")
 
 if not path_out.exists():
     os.mkdir(path_out)
 
-ppt_in = [file for file in path_in.iterdir() if file.name.endswith(".pptx")]
+ppt_in = [file for file in path_in.glob("**/*.pptx")]
 list(ppt_in)
 
 
-# In[24]:
+# In[42]:
 
 
 from pptx import Presentation
 from pptx.enum.shapes import MSO_SHAPE_TYPE
 
-def extract(ppt):
-    prs = Presentation(ppt)
+def extract(path_ppt):
+    prs = Presentation(path_ppt)
     lines = []
     
-    dir_out = path_out / ppt.stem
-    if not dir_out.exists():
-        os.mkdir(dir_out)
+    dir_out = path_out / path_ppt.relative_to(path_in).with_suffix("")
+    if dir_out.exists():
+        return
+        
+    os.makedirs(dir_out)
     
     for i, slide in enumerate(prs.slides):
         for j, shape in enumerate(slide.shapes):
@@ -62,17 +63,12 @@ def extract(ppt):
                     
     with open(dir_out / "README.md", "w") as file:
         file.write("\n\n".join(lines))
+        print(dir_out)
 
 
-# In[25]:
+# In[43]:
 
 
-for ppt in ppt_in:
-    extract(ppt)
-
-
-# In[ ]:
-
-
-
+for path_ppt in ppt_in:
+    extract(path_ppt)
 
